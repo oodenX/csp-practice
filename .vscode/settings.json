@@ -57,5 +57,7 @@
         "map": "cpp",
         "string": "cpp",
         "xtree": "cpp"
-    }
+    },
+    "commentTranslate.targetLanguage": "zh-CN",
+    "commentTranslate.hover.enabled": true
 }

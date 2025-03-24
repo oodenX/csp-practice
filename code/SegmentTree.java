@@ -1,15 +1,20 @@
-#include <iostream>
-#include <vector>
-using namespace std;
+import java.util.*;
 
 class SegmentTree {
-private:
-    vector<int> tree; // 线段树数组
-    vector<int> arr;  // 原数组
-    int n;
+    private int[] tree; // 线段树数组
+    private int[] arr;  // 原数组
+    private int n;
+
+    // 构造函数，初始化线段树
+    public SegmentTree(int[] input) {
+        this.n = input.length;
+        this.arr = Arrays.copyOf(input, n);
+        this.tree = new int[4 * n]; // 分配足够的空间
+        build(0, 0, n - 1); // 构建线段树
+    }
 
     // 构建线段树
-    void build(int node, int start, int end) {
+    private void build(int node, int start, int end) {
         if (start == end) {
             // 叶子节点
             tree[node] = arr[start];
@@ -28,7 +33,11 @@ private:
     }
 
     // 区间查询
-    int query(int node, int start, int end, int l, int r) {
+    public int query(int l, int r) {
+        return query(0, 0, n - 1, l, r);
+    }
+
+    private int query(int node, int start, int end, int l, int r) {
         if (r < start || l > end) {
             // 查询区间与当前节点区间无交集
             return 0;
@@ -50,7 +59,11 @@ private:
     }
 
     // 单点更新
-    void update(int node, int start, int end, int idx, int value) {
+    public void update(int idx, int value) {
+        update(0, 0, n - 1, idx, value);
+    }
+
+    private void update(int node, int start, int end, int idx, int value) {
         if (start == end) {
             // 更新叶子节点
             arr[idx] = value;
@@ -73,33 +86,15 @@ private:
         }
     }
 
-public:
-    SegmentTree(const vector<int>& input) {
-        arr = input;
-        n = arr.size();
-        tree.resize(4 * n); // 分配足够的空间
-        build(0, 0, n - 1); // 构建线段树
+    public static void main(String[] args) {
+        int[] arr = {1, 3, 5, 7, 9, 11};
+        SegmentTree segTree = new SegmentTree(arr);
+
+        // 区间查询
+        System.out.println("Sum of range [1, 3]: " + segTree.query(1, 3)); // 输出: 15
+
+        // 单点更新
+        segTree.update(1, 10);
+        System.out.println("After update, sum of range [1, 3]: " + segTree.query(1, 3)); // 输出: 22
     }
-
-    int query(int l, int r) {
-        return query(0, 0, n - 1, l, r);
-    }
-
-    void update(int idx, int value) {
-        update(0, 0, n - 1, idx, value);
-    }
-};
-
-int main() {
-    vector<int> arr = {1, 3, 5, 7, 9, 11};
-    SegmentTree segTree(arr);
-
-    // 区间查询
-    cout << "Sum of range [1, 3]: " << segTree.query(1, 3) << endl; // 输出: 15
-
-    // 单点更新
-    segTree.update(1, 10);
-    cout << "After update, sum of range [1, 3]: " << segTree.query(1, 3) << endl; // 输出: 22
-
-    return 0;
 }
