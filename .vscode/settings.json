@@ -59,5 +59,6 @@
         "xtree": "cpp"
     },
     "commentTranslate.targetLanguage": "zh-CN",
-    "commentTranslate.hover.enabled": true
+    "commentTranslate.hover.enabled": true,
+    "java.format.settings.url": ".vscode/java-formatter.xml"
 }

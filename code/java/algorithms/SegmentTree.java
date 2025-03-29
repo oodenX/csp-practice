@@ -1,4 +1,6 @@
-import java.util.*;
+package algorithms;
+
+import java.util.Arrays;
 
 class SegmentTree {
     private int[] tree; // 线段树数组
